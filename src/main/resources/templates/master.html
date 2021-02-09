@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="layout(title, metas, content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Samuel Martins">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <base href="/debabomartins/" >
+    <th:block th:replace="${metas}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+    <link th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" rel="stylesheet">
+    <title th:include="${title}"></title>
+</head>
+<body class="d-flex flex-column h-100 bg-light">
+<script th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.bundle.min.js}"></script>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">
+            <svg alt="logo" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-basket" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
+            </svg>
+            <span class="hide">Logo</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+                aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" th:classappend="${#strings.equals(page, 'home')} ? 'active' : ''">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()" th:classappend="${#strings.equals(page, 'form')} ? 'active' : ''">
+                    <a class="nav-link" th:href="@{/item/new}">Nuovo</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()" th:classappend="${#strings.equals(page, 'form')} ? 'active' : ''">
+                    <a class="nav-link" th:href="@{/groups/}">Groups</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item nav-color" sec:authorize="isAuthenticated()">
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle person-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                        <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                    </svg>
+                    <span sec:authentication="name">name</span>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()"> <a class="nav-link" th:href="@{/login}">Login</a></li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()"> <a class="nav-link" th:href="@{/register}">Register</a></li>
+                <li class="nav-item" sec:authorize="isAuthenticated()"> <a class="nav-link" th:href="@{/logout}">Logout</a></li>
+            </ul>
+
+            <form th:if="${#strings.equals(page, 'home')}" class="form-inline my-2 my-md-0" method="get">
+                <input aria-label="Search" th:oninput="search(this)" class="form-control" id="q" type="text" placeholder="Search">
+            </form>
+
+        </div>
+    </div>
+</nav>
+
+<div class="py-5">
+    <div class="container">
+        <main id="main" role="main" th:include="${content}"></main>
+    </div>
+</div>
+
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <span class="text-muted">Copyleft CC 2019 by Samuel Martins</span>
+    </div>
+</footer>
+</body>
+</html>

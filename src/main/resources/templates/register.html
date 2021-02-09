@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{master :: layout(~{::title},~{::meta},~{::main})}">
+<head>
+    <meta name="description" content="Register">
+    <meta name="keywords" content="register">
+    <title>Register</title>
+</head>
+<body>
+
+<main>
+    <script th:src="@{/script.js}"></script>
+    <h2>Register</h2>
+    <form id="register-form" th:object="${user}" th:action="@{/register}" method="post">
+        <div class="form-group">
+            <label for="nameInput">Name:</label>
+            <input id="nameInput" class="form-control" type="text" th:field="*{name}" placeholder="Name...">
+            <small id="nameHelpBlock" class="form-text text-danger">
+                Il nome può contenere solo lettere maiuscole e minuscole.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="surnameInput">Surname:</label>
+            <input id="surnameInput" class="form-control" type="text" th:field="*{surname}" placeholder="Surname...">
+            <small id="surnameHelpBlock" class="form-text text-danger">
+                Il Cognome può contenere solo lettere maiuscole e minuscole.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="usernameInput">Username:</label>
+            <input id="usernameInput" class="form-control" type="text" th:field="*{username}" placeholder="Username...">
+            <small id="usernameHelpBlock" class="form-text text-danger">
+                L'username può contenere lettere maiuscole, minuscole, numeri e il carattere _.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="passwordInput">Password:</label>
+            <input id="passwordInput" class="form-control" type="password" th:field="*{password}" placeholder="Password...">
+            <small id="passwordHelpBlock" class="form-text text-danger">
+                La password può contenere lettere maiuscole, minuscole, numeri e il carattere _ ed avere una lunghezza tra gli 8 e i 15 caratteri compresi.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPasswordInput">Confirm password:</label>
+            <input id="confirmPasswordInput" class="form-control" type="password" placeholder="Password...">
+            <small id="confirmPasswordHelpBlock" class="form-text text-danger">
+                Le password devono coincidere.
+            </small>
+        </div>
+
+        <input type="submit" class="btn btn-primary" id="register-submit" value="Invia">
+    </form>
+</main>
+
+</body>
+</html>

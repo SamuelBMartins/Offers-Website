@@ -1,0 +1,28 @@
+.mycard:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.myarticle {
+    border: none !important;
+}
+
+.nav-color {
+    color: white;
+}
+
+.person-icon {
+    vertical-align: bottom;
+    padding-top: 5px;
+}
+
+.title-link {
+    color: #212529;
+}
+
+.title-link:hover {
+    color: #131418;
+}
+
+.hide {
+    display: none;
+}

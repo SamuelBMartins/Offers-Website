@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{master :: layout(~{::title},~{::meta},~{::main})}">
+<head>
+    <meta name="description" content="dettagli item">
+    <title th:text="${item.getTitle()}">Vendo auto da corsa velocissima</title>
+</head>
+<body>
+
+<main>
+    <article th:object="${item}" class="card myarticle bg-light mb-4">
+        <header class="bg-light card-header text-center">
+            <div class="card-meta">
+                <time th:datetime="*{getDate()}" th:text="*{#dates.format(getDate(), 'dd-MM-yyyy HH:mm')}"></time> in <span th:text="*{getCategory()}"></span>
+            </div>
+            <h1 class="card-title" th:text="*{getTitle()}"></h1>
+            <div class="card-meta">
+                by <span th:text="*{getAuthor()}"></span>
+            </div>
+        </header>
+        <img th:alt="*{getTitle()}" class="card-img" th:src="@{/item/{id}/image(id=*{getId()})}">
+        <div class="card-body">
+            <p class="card-text" th:text="*{getDescription()}"></p>
+            <a sec:authorize="isAuthenticated()" th:href="@{/item/{id}/edit(id=*{getId()})}" class="btn btn-primary">Modifica</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/item/{id}/delete(id=*{getId()})}" class="btn btn-danger">Elimina</a>
+        </div>
+
+    </article>
+</main>
+
+</body>
+</html>

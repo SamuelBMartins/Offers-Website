@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{master :: layout(~{::title},~{::meta},~{::main})}">
+<head>
+    <meta name="description" content="Create item">
+    <meta name="keywords" content="offerta richiesta vendi">
+    <title>Crea item</title>
+</head>
+<body>
+
+<main>
+    <script th:src="@{/subcategory.js}"></script>
+    <h2>Crea il tuo annuncio</h2>
+    <form th:object="${item}" th:action="@{${respondTo}}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="type">Tipo annuncio:</label>
+            <select  class="form-control" th:field="*{type}">
+                <option value="" selected hidden>Scegli qui</option>
+                <option th:each="typeAnnounce : ${typesAnnounce}" th:value="${typeAnnounce}" th:utext="${typeAnnounce}">Offerta</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="title">Titolo:</label>
+            <input class="form-control" type="text" th:field="*{title}" placeholder="Titolo...">
+        </div>
+
+        <div class="form-group">
+            <label for="file">Immagine:</label>
+            <input class="form-control-file" id="file" type="file" name="file" accept="image/jpeg"/>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Categoria:</label>
+            <select class="form-control">
+                <option value="" selected  hidden>Scegli qui</option>
+                <option th:each="category : ${categories}" th:onclick="updateaaa(this)" th:value="${category.getName()}" th:utext="${category.getName()}">Veicolo</option>
+            </select>
+        </div>
+
+        <div id="categoria" class="form-group">
+            <label for="category">Sottocategria:</label>
+            <select  class="form-control" th:field="*{category}">
+                <option value="" selected  hidden>Scegli qui</option>
+             </select>
+        </div>
+
+        <div class="form-group">
+            <label for="desc">Descrizione:</label>
+            <textarea class="form-control" th:field="*{description}" rows="5" cols="30" placeholder="Descrizione item.."></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Invia">
+    </form>
+</main>
+
+</body>
+</html>

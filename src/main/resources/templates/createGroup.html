@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{master :: layout(~{::title},~{::meta},~{::main})}">
+<head>
+    <meta name="description" content="Create item">
+    <meta name="keywords" content="offerta richiesta vendi">
+    <title>Crea grup</title>
+</head>
+<body>
+
+<main>
+    <h2>Crea il tuo gruppo</h2>
+    <form th:object="${group}" th:action="@{${respondTo}}" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="title">Titolo:</label>
+            <input class="form-control" type="text" th:field="*{title}" placeholder="Titolo...">
+        </div>
+
+
+        <div class="form-group">
+            <label for="desc">Descrizione:</label>
+            <textarea class="form-control" th:field="*{description}" rows="5" cols="30" placeholder="Descrizione group.."></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Invia">
+    </form>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{master :: layout(~{::title},~{::meta},~{::main})}">
+<head>
+    <meta name="description" content="Compravendita">
+    <meta name="keywords" content="offerte richieste">
+    <title>Groups</title>
+</head>
+<body>
+
+<main id="main">
+    <h2>Gruppi</h2>
+    <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="|location.href='@{/groups/create}'|">crea</button>
+
+    <h2>Miei gruppi</h2>
+        <div th:each="group: ${myGroups}" th:object="${group}" class="col-md-4">
+            <div class="card mycard mb-4 shadow-sm">
+                <div class="card-body">
+                        <h3 class="mb-0" th:text="*{getTitle()}"></h3>
+                    <p class="card-text" th:text="*{getDescription()}"></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" th:onclick="|location.href='@{/groups/{id}(id=*{getId()})}'|">view</button>
+                        </div>
+                        <small class="text-muted"><time th:datetime="*{getDate()}" th:text="*{#dates.format(getDate(), 'dd-MM-yyyy HH:mm')}"></time></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <h2>Tutti i gruppi</h2>
+    <div th:each="group: ${allGroups}" th:object="${group}" class="col-md-4">
+        <div class="card mycard mb-4 shadow-sm">
+            <div class="card-body">
+                <h3 class="mb-0" th:text="*{getTitle()}"></h3>
+                <p class="card-text" th:text="*{getDescription()}"></p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button th:if="${#lists.contains(group.getMembers(), user)}" type="button" class="btn btn-sm btn-outline-secondary" th:onclick="|location.href='@{/groups/{id}(id=*{getId()})}'|">view</button>
+                        <button th:unless="${#lists.contains(group.getMembers(), user)}" type="button" class="btn btn-sm btn-outline-secondary" th:onclick="|location.href='@{/groups/{id}/enter(id=*{getId()})}'|">aderisci</button>
+                    </div>
+                    <small class="text-muted"><time th:datetime="*{getDate()}" th:text="*{#dates.format(getDate(), 'dd-MM-yyyy HH:mm')}"></time></small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+</body>
+</html>
