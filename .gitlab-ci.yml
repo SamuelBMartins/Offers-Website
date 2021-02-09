@@ -17,6 +17,6 @@ app-deploy:
   - ~/deploy.sh $WAR_NAME $APP_NAME
   environment:
     name: staging
-    url: http://isin03.dti.supsi.ch:81/${CI_PROJECT_NAME}
+    url: http://domain.com:81/${CI_PROJECT_NAME}
   only:
   - master
