@@ -1,10 +1,7 @@
 # Offers Website
 
  A website for buying and selling stuff 
-<p align="center">
-  <img src="./doc/img/homepage.png"/>
-</p> 
-
+ 
 ## Features
 
   - Categories
